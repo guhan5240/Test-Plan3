@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors'
 import connectDB from './database/database.js';
 import router from './routes/index.js';
+import multer from 'multer';
 import authRoute from "./routes/auth.js"
 const app = express()
 dotenv.config({ quiet: true });
@@ -17,5 +18,18 @@ app.use(cors({
     credentials: true
 }))
 app.use('/api', router)
-
+app.use((err,req,res,next)=>{
+    if(err instanceof multer.MulterError){
+        switch(err.code){
+            case "LIMIT_FILE_SIZE":
+                return res.status(400).send("error: file too large maximum file is 1mb");
+            default :
+                return res.status(400).send(`error ${err.code}`)
+        }
+    }
+    else{
+        console.log("error");
+        return res.status(400).json({msg:err.message})
+    }
+})
 export default app;
