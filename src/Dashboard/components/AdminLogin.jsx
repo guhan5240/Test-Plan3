@@ -15,7 +15,7 @@ export const AdminLogin = () => {
            setAdmin({...admin,[e.target.name]:e.target.value})
         }
         const handleLogin=async(e)=>{
-            e.preventDefault();
+            // e.preventDefault();
             await axios.post("http://localhost:5000/api/auth/login",admin)
              .then(
                 (res)=>

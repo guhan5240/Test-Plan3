@@ -11,7 +11,7 @@ export default function Main() {
                 <main className=''>
                     <Outlet />
                 </main>
-                <Footer />
+               <Footer />
             </div>
         </>
     )
